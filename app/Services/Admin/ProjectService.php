@@ -8,7 +8,7 @@ class ProjectService
 {
      public function index()
     {
-        $projects = Project::all();
+        $projects = Project::with('moduls')->get();
         return view('admin.projects.index', compact('projects'));
     }
 }

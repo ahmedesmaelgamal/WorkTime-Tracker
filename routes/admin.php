@@ -9,7 +9,10 @@ use App\Http\Controllers\Admin\ModulController;
 use App\Http\Controllers\Admin\WorkTimeController;
 use App\Http\Controllers\Admin\ReportController;
 Route::get('/', function () {
-    return view('app');
+    return view('admin.app');
+});
+Route::get('/template', function () {
+    return view('template');
 });
 
 Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
@@ -35,3 +38,4 @@ Route::resource('work-times', WorkTimeController::class);
 // Additional custom routes
 Route::get('/reports', [ReportController::class, 'index'])->name('reports');
 Route::get('/reports/export', [ReportController::class, 'export'])->name('reports.export');
+Route::post('/report/filter', [ReportController::class, 'filter'])->name('report.filter');

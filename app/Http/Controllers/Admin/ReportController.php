@@ -4,17 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\Admin\ReportService;
 
 class ReportController extends Controller
 {
-    public function index()
-    {
-        return view('admin.reports.index');
+    public function __construct(
+        protected ReportService $reportService
+    ) {
     }
 
-    public function export()
+    public function filter(Request $request)
     {
-        // Export logic here
-        return redirect()->back()->with('success', 'Report exported successfully.');
+        return response()->json([
+            "success" => true,
+            "data" => $this->reportService->filter($request)
+        ]);
     }
 }
