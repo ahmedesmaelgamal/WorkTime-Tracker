@@ -40,30 +40,30 @@ class AdminAuthController extends Controller
         ]);
     }
 
-    public function logout(Request $request)
-    {
-        try {
-            if (!$request->user()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No authenticated user found'
-                ], 401);
-            }
+    // public function logout(Request $request)
+    // {
+    //     try {
+    //         if (!$request->user()) {
+    //             return response()->json([
+    //                 'success' => false,
+    //                 'message' => 'No authenticated user found'
+    //             ], 401);
+    //         }
 
-            $request->user()->currentAccessToken()->delete();
+    //         $request->user()->currentAccessToken()->delete();
             
-            return response()->json([
-                'success' => true,
-                'message' => 'Logged out successfully'
-            ]);
+    //         return response()->json([
+    //             'success' => true,
+    //             'message' => 'Logged out successfully'
+    //         ]);
             
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Logout failed',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Logout failed',
+    //             'error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
 
 }

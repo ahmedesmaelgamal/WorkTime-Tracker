@@ -9,7 +9,7 @@
                     <thead class="table-light">
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
+                            <th>Project Name</th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Total Days</th>

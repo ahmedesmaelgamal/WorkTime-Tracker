@@ -12,9 +12,5 @@ class ModulController extends Controller
         protected ModulService $modulService
     ) {
     }
-    // public function index(Request $request)
-    // {
-    //     return response()->json($this->modulService->index($request));
-    // }
 
 }

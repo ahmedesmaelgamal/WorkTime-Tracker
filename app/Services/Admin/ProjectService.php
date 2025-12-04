@@ -19,8 +19,6 @@ class ProjectService
     public function getTableView()
     {
         $projects = Project::with('workTimes.employee')->get();
-        
-        // Calculate project statistics
         $projects = $projects->map(function ($project) {
             $workTimes = $project->workTimes;
             $totalHours = $workTimes->sum('hours');
@@ -46,7 +44,7 @@ class ProjectService
                 'total_days' => $uniqueDates,
                 'total_hours' => round($totalHours, 1),
                 'total_employees' => $uniqueEmployees,
-                'total_project_cost' => '$' . number_format($totalCost, 2),
+                'total_project_cost' =>  number_format($totalCost, 2),
             ];
         });
         

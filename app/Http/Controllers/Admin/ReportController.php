@@ -25,7 +25,6 @@ class ReportController extends Controller
         ModulService $modulService,
         WorkTimeService $workTimeService
     ) {
-        // $this->middleware('auth:admin');
         $this->reportService = $reportService;
         $this->employeeService = $employeeService;
         $this->projectService = $projectService;
@@ -46,10 +45,7 @@ class ReportController extends Controller
                     break;
                     
                 case 'moduls':
-                    // Debug: Check if service is working
-                    logger('Loading moduls table view');
                     $html = $this->modulService->getTableView();
-                    logger('HTML length: ' . strlen($html));
                     break;
                     
                 case 'work_times':
@@ -80,13 +76,10 @@ class ReportController extends Controller
 
     private function getAllTableView()
     {
-        // Get data from services
         $employees = $this->employeeService->getAllEmployees();
         $projects = $this->projectService->getAllProjects();
         $moduls = $this->modulService->getAllModuls();
         $workTimes = $this->workTimeService->getAllWorkTimes();
-        
-        // Format the data for views
         $projects = $projects->map(function ($project) {
             $workTimes = $project->workTimes;
             $totalHours = $workTimes->sum('hours');

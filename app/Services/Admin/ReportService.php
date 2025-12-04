@@ -18,13 +18,15 @@ class ReportService
         public WorkTimeService $workTimeService
     ) {
     }
-     public function index()
-    {
-        $employees = Employee::all();
-        return view('admin.reports.index', compact('employees'));
-    }
+    //  public function index()
+    // { 
+    //     $employees = Employee::get();
+    //     return response()->json([
+    //         "success" => true,
+    //         "data" => $employees
+    //     ]);
+    // }
     public function filter(Request $request){
-        // dd($request->all());
         if($request->has('table_filter')){
             if($request->get('table_filter') == 'employees'){
                 return $this->employerService->index();

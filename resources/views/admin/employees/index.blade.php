@@ -11,7 +11,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Salary</th>
-                            <th>Hourly Rate</th>
+                            <th>Hourly cost</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -20,8 +20,8 @@
                             <tr>
                                 <td>{{ $employee->id }}</td>
                                 <td><strong>{{ $employee->name }}</strong></td>
-                                <td>${{ number_format($employee->salary, 2) }}</td>
-                                <td>${{ number_format($employee->salary / 160, 2) }}/hr</td>
+                                <td>{{ number_format($employee->salary, 2) }}</td>
+                                <td>{{ number_format($employee->salary / 160, 2) }}</td>
                             </tr>
                             @endforeach
                         @else
