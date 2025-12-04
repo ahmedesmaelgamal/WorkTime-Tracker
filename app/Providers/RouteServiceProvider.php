@@ -22,7 +22,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('admin')
             ->name('admin.')
-            // ->middleware(['web', 'auth:admin'])
+            // ->middleware('auth')
             ->group(base_path('routes/admin.php'));
     }
 }
