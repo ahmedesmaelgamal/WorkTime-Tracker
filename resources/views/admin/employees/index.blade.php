@@ -19,17 +19,19 @@
                 </thead>
                   <tbody>
                   <tr>
-                      <td>1</td>
-                      <td>Alice Johnson</td>
-                      <td>1000</td>
-                      <td>10</td>
+                    @foreach ($employees as $employee)
+                      <td>{{ $employee->id }}</td>
+                      <td>{{ $employee->name }}</td>
+                      <td>{{ $employee->salary }}</td>
+                      <td>{{ $employee->hour_cost }}</td>
+                    @endforeach
                   </tr>
-                  <tr>
+                  {{-- <tr>
                       <td>2</td>
                       <td>Bob Smith</td>
                       <td>3000</td>
                       <td>20</td>
-                  </tr>
+                  </tr> --}}
                   </tbody>
               </table>
             </div>
