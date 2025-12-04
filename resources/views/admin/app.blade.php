@@ -36,6 +36,7 @@
 
     <!-- Tables -->
     <div id="tablesContainer" class="row gy-4">
+        @yield('tables')
       <!-- Table 1 -->
       <div id="t1" class="col-12">
         <div class="card shadow-sm">

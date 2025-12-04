@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+    public function __construct(protected ObjService $objService) {}
+
     public function index()
     {
         $projects = Project::all();
