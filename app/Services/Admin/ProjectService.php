@@ -9,7 +9,7 @@ class ProjectService
 {
      public function index()
     {
-        $projects = Project::with('moduls')->get();
+        $projects = Project::get();
         return response()->json([
             "success" => true,
             "data" => $projects
@@ -17,11 +17,11 @@ class ProjectService
     }
     public function getTableView()
     {
-        $projects = Project::with('moduls')->get();
+        $projects = Project::get();
         return view('admin.projects.index', compact('projects'))->render();
     }
     public function getAllProjects(){
-        $projects = Project::with('moduls')->get();
+        $projects = Project::get();
         return $projects;
     }
 }

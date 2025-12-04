@@ -35,7 +35,8 @@ class WorkTimeService
     public function getTableView()
     {
         $workTimes = WorkTime::all();
-        return view('admin.projects.index', compact('stats', 'recentWorkTimes', 'topEmployees'))->render();
+        // return view('admin.projects.index', compact('stats', 'recentWorkTimes', 'topEmployees'))->render();
+        return view('admin.work_times.index', compact('workTimes'))->render();
     }
     public function getAllWorkTimes(){
         $workTimes = WorkTime::all();

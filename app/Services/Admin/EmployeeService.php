@@ -9,7 +9,7 @@ class EmployeeService
 {
      public function index()
     {
-        $employees = Employee::with('projects')->get();
+        $employees = Employee::get();
         return response()->json([
             "success" => true,
             "data" => $employees
@@ -17,12 +17,12 @@ class EmployeeService
     }
     public function getTableView()
     {
-        $employees = Employee::with('projects')->get();
+        $employees = Employee::get();
         return view('admin.employees.index', compact('employees'))->render();
     }
     public function getAllEmployees()
     {
-        $employees = Employee::with('projects')->get();
+        $employees = Employee::get();
         return $employees;
     }
 
