@@ -46,7 +46,10 @@ class ReportController extends Controller
                     break;
                     
                 case 'moduls':
+                    // Debug: Check if service is working
+                    logger('Loading moduls table view');
                     $html = $this->modulService->getTableView();
+                    logger('HTML length: ' . strlen($html));
                     break;
                     
                 case 'work_times':
@@ -72,47 +75,83 @@ class ReportController extends Controller
             "message" => "No table filter specified"
         ]);
     }
-    
+
+
+
     private function getAllTableView()
     {
+        // Get data from services
         $employees = $this->employeeService->getAllEmployees();
         $projects = $this->projectService->getAllProjects();
         $moduls = $this->modulService->getAllModuls();
         $workTimes = $this->workTimeService->getAllWorkTimes();
         
-        // $stats = [
-        //     'employees_count' => count($employees->toArray() ?? []),
-        //     'projects_count' => count($projects->toArray() ?? []),
-        //     'moduls_count' => count($moduls->toArray() ?? []),
-        //     'total_hours' => round($workTimes->sum('hours'), 1),
-        //     'total_cost' => '$' . number_format($workTimes->sum(function($wt) {
-        //         $hourlyRate = $wt->employee->salary / 160;
-        //         return $wt->hours * $hourlyRate;
-        //     }), 2),
-        // ];
-        
-        // $recentWorkTimes = $workTimes->take(10)->map(function($workTime) {
-        //     return (object) [
-        //         'formatted_date' => $workTime->date->format('M d, Y'),
-        //         'employee_name' => $workTime->employee->name,
-        //         'project_name' => $workTime->project->name,
-        //         'hours' => $workTime->hours,
-        //     ];
-        // });
-        
-        // $topEmployees = $employees->map(function($employee) {
-        //     $totalHours = $employee->workTimes->sum('hours');
-        //     $hourlyRate = $employee->salary / 160;
-        //     $totalCost = $totalHours * $hourlyRate;
+        // Format the data for views
+        $projects = $projects->map(function ($project) {
+            $workTimes = $project->workTimes;
+            $totalHours = $workTimes->sum('hours');
+            $totalCost = 0;
+            $employeeIds = [];
             
-        //     return (object) [
-        //         'name' => $employee->name,
-        //         'total_hours' => round($totalHours, 1),
-        //         'total_cost' => '$' . number_format($totalCost, 2),
-        //     ];
-        // })->sortByDesc('total_hours')->take(5);
+            foreach ($workTimes as $workTime) {
+                $hourlyRate = $workTime->employee->salary / 160;
+                $totalCost += $workTime->hours * $hourlyRate;
+                $employeeIds[] = $workTime->emp_id;
+            }
+            
+            $uniqueEmployees = count(array_unique($employeeIds));
+            $uniqueDates = $workTimes->groupBy('date')->count();
+            $startDate = $workTimes->min('date');
+            $endDate = $workTimes->max('date');
+            
+            return (object) [
+                'id' => $project->id,
+                'name' => $project->name,
+                'start_date' => $startDate ? $startDate->format('Y-m-d') : 'N/A',
+                'end_date' => $endDate ? $endDate->format('Y-m-d') : 'N/A',
+                'total_days' => $uniqueDates,
+                'total_hours' => round($totalHours, 1),
+                'total_employees' => $uniqueEmployees,
+                'total_project_cost' => '$' . number_format($totalCost, 2),
+            ];
+        });
         
-        // return view('admin.all', compact('stats', 'recentWorkTimes', 'topEmployees'))->render();
-        return view('admin.all')->render();
+        $moduls = $moduls->map(function ($modul) {
+            $workTimes = $modul->workTimes;
+            $totalHours = $workTimes->sum('hours');
+            $totalCost = 0;
+            
+            foreach ($workTimes as $workTime) {
+                $hourlyRate = $workTime->employee->salary / 160;
+                $totalCost += $workTime->hours * $hourlyRate;
+            }
+            
+            $projectIds = $workTimes->pluck('project_id')->unique()->count();
+            
+            return (object) [
+                'id' => $modul->id,
+                'name' => $modul->name,
+                'total_hours' => round($totalHours, 1),
+                'total_cost' => '$' . number_format($totalCost, 2),
+                'total_projects' => $projectIds,
+            ];
+        });
+        
+        $workTimes = $workTimes->take(20)->map(function ($workTime) {
+            $hourlyRate = $workTime->employee->salary / 160;
+            $cost = $workTime->hours * $hourlyRate;
+            
+            return (object) [
+                'id' => $workTime->id,
+                'date' => $workTime->date->format('Y-m-d'),
+                'employee_name' => $workTime->employee->name,
+                'project_name' => $workTime->project->name,
+                'modul_name' => $workTime->modul->name,
+                'hours' => $workTime->hours,
+                'cost' => '$' . number_format($cost, 2),
+            ];
+        });
+        
+        return view('admin.all', compact('employees', 'projects', 'moduls', 'workTimes'))->render();
     }
 }

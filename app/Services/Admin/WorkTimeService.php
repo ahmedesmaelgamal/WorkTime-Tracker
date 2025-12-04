@@ -5,41 +5,51 @@ namespace App\Services\Admin;
 
 use App\Models\WorkTime;
 
+
 class WorkTimeService
 {
-
-    public function __construct(
-        protected WorkTime $workTimes,
-
-    ) {
-    }
-
     public function index()
     {
-
-        $monthlyWorkTimes = $this->workTimes->selectRaw('MONTH(created_at) as months, COUNT(*) as count')
-            ->whereYear('created_at', date('Y'))
-            ->groupBy('months')
-            ->pluck('count', 'months');
-
-        $workTimesData = [];
-        for ($i = 1; $i <= 12; $i++) {
-            $workTimesData[] = $monthlyWorkTimes[$i] ?? 0;
-        }
+        $workTimes = WorkTime::with(['employee', 'project', 'modul'])
+            ->orderBy('date', 'desc')
+            ->get();
+        
         return response()->json([
             "success" => true,
-            "data" => $workTimesData
+            "data" => $workTimes
         ]);
     }
-
+    
     public function getTableView()
     {
-        $workTimes = WorkTime::all();
-        // return view('admin.projects.index', compact('stats', 'recentWorkTimes', 'topEmployees'))->render();
+        $workTimes = WorkTime::with(['employee', 'project', 'modul'])
+            ->orderBy('date', 'desc')
+            ->limit(50)
+            ->get();
+        
+        $workTimes = $workTimes->map(function ($workTime) {
+            $hourlyRate = $workTime->employee->salary / 160;
+            $cost = $workTime->hours * $hourlyRate;
+            
+            return (object) [
+                'id' => $workTime->id,
+                'date' => $workTime->date->format('Y-m-d'),
+                'employee_name' => $workTime->employee->name,
+                'project_name' => $workTime->project->name,
+                'modul_name' => $workTime->modul->name,
+                'hours' => $workTime->hours,
+                'cost' => '$' . number_format($cost, 2),
+            ];
+        });
+        
         return view('admin.work_times.index', compact('workTimes'))->render();
     }
-    public function getAllWorkTimes(){
-        $workTimes = WorkTime::all();
+    
+    public function getAllWorkTimes()
+    {
+        $workTimes = WorkTime::with(['employee', 'project', 'modul'])
+            ->orderBy('date', 'desc')
+            ->get();
         return $workTimes;
     }
 }

@@ -12,43 +12,9 @@ class ModulController extends Controller
         protected ModulService $modulService
     ) {
     }
-    public function index(Request $request)
-    {
-        return response()->json($this->modulService->index($request));
-    }
-
-    // public function create()
+    // public function index(Request $request)
     // {
-    //     return $this->modulService->create();
+    //     return response()->json($this->modulService->index($request));
     // }
 
-    // public function store(Request $request)
-    // {
-    //     // Validation logic here
-    //     // Modul::create($request->all());
-    //     return redirect()->route('moduls.index');
-    // }
-
-    // public function show(Modul $modul)
-    // {
-    //     return view('admin.moduls.show', compact('modul'));
-    // }
-
-    // public function edit(Modul $modul)
-    // {
-    //     return view('admin.moduls.edit', compact('modul'));
-    // }
-
-    // public function update(Request $request, Modul $modul)
-    // {
-    //     // Validation logic here
-    //     // $modul->update($request->all());
-    //     return redirect()->route('moduls.index');
-    // }
-
-    // public function destroy(Modul $modul)
-    // {
-    //     $modul->delete();
-    //     return redirect()->route('moduls.index');
-    // }
 }
