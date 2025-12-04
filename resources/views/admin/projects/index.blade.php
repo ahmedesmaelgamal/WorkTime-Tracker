@@ -8,15 +8,26 @@
               <table class="table table-bordered table-hover mb-0">
                 <thead class="table-light">
                   <tr>
-                    @foreach ($projects as $project)
-                        <th>{{ $project->name }}</th>
-                        <th>{{ $project->start_date }}</th>
-                        <th>{{ $project->end_date }}</th>
-                        <th>{{ $project->total_days }}</th>
-                        <th>{{ $project->total_employees }}</th>
-                        <th>{{ $project->total_project_cost }}</th>
-                    @endforeach
+                        <th>#</th>
+                        </th>Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Total Days</th>
+                        <th>Total Employees</th>
+                        <th>Total Project Cost</th>
                   </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($projects as $project)
+                        <tr>
+                            <td>{{ $project->name }}</td>
+                            <td>{{ $project->start_date }}</td>
+                            <td>{{ $project->end_date }}</td>
+                            <td>{{ $project->total_days }}</td>
+                            <td>{{ $project->total_employees }}</td>
+                            <td>{{ $project->total_project_cost }}</td>
+                        </tr>
+                    @endforeach
                   </tbody>
               </table>
             </div>

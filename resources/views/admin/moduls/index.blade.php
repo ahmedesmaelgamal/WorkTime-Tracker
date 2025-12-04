@@ -16,14 +16,14 @@
             </tr>
           </thead>
             <tbody>
-            <tr>
               @foreach ($moduls as $modul)
-                <td>{{ $modul->id }}</td>
-                <td>{{ $modul->name }}</td>
-                <td>{{ $modul->price }}</td>
-                <td>{{ $modul->duration }}</td>
+                <tr>
+                  <td>{{ $modul->id }}</td>
+                  <td>{{ $modul->name }}</td>
+                  <td>{{ $modul->price }}</td>
+                  <td>{{ $modul->duration }}</td>
+                </tr>
               @endforeach
-            </tr>
             </tbody>
         </table>
       </div>

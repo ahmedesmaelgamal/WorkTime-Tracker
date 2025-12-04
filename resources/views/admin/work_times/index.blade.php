@@ -13,19 +13,19 @@
               <th>Employee</th>
               <th>Project</th>
               <th>Hours</th>
-              <th>medul</th>
+              <th>Modul</th>
             </tr>
           </thead>
           <tbody>
-          <tr>
-              @foreach ($workTimes as $workTime)
-              <td>{{ $workTime->date }}</td>
-              <td>{{ $workTime->employee->name }}</td>
-              <td>{{ $workTime->project->name }}</td>
-              <td>{{ $workTime->hours }}</td>
-              <td>{{ $workTime->modul->name }}</td>
+          @foreach ($workTimes as $workTime)
+              <tr>
+                <td>{{ $workTime->date }}</td>
+                <td>{{ $workTime->employee->name }}</td>
+                <td>{{ $workTime->project->name }}</td>
+                <td>{{ $workTime->hours }}</td>
+                <td>{{ $workTime->modul->name }}</td>
+              </tr>
               @endforeach
-          </tr>
           </tbody>
         </table>
       </div>
