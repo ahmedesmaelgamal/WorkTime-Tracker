@@ -11,10 +11,7 @@ use App\Models\Modul;
 use App\Models\WorkTime;
 class DashboardController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
+
 
     public function index()
     {
@@ -62,7 +59,6 @@ class DashboardController extends Controller
 
         $data = $query->orderBy('date', 'desc')->paginate(10);
 
-        // Calculate totals
         $totalHours = $query->sum('hours');
         $totalCost = 0;
 

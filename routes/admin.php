@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\ModulController;
 use App\Http\Controllers\Admin\WorkTimeController;
 use App\Http\Controllers\Admin\ReportController;
 Route::get('/', function () {
-    return view('welcome');
+    return view('app');
 });
 
 Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
