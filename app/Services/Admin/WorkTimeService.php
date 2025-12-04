@@ -3,9 +3,6 @@
 namespace App\Services\Admin;
 
 
-use App\Models\Employee;
-use App\Models\Project;
-use App\Models\Modul;
 use App\Models\WorkTime;
 
 class WorkTimeService
@@ -29,10 +26,19 @@ class WorkTimeService
         for ($i = 1; $i <= 12; $i++) {
             $workTimesData[] = $monthlyWorkTimes[$i] ?? 0;
         }
-        return view('admin.work_times.index', [
-            "workTimesData" => $workTimesData,
+        return response()->json([
+            "success" => true,
+            "data" => $workTimesData
         ]);
     }
 
-
+    public function getTableView()
+    {
+        $workTimes = WorkTime::all();
+        return view('admin.projects.index', compact('stats', 'recentWorkTimes', 'topEmployees'))->render();
+    }
+    public function getAllWorkTimes(){
+        $workTimes = WorkTime::all();
+        return $workTimes;
+    }
 }

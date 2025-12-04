@@ -24,12 +24,13 @@ class ReportService
         return view('admin.reports.index', compact('employees'));
     }
     public function filter(Request $request){
+        // dd($request->all());
         if($request->has('table_filter')){
             if($request->get('table_filter') == 'employees'){
                 return $this->employerService->index();
             }else if($request->get('table_filter') == 'projects'){
                 return $this->projectService->index();
-            }else if($request->get('table_filter') == 'modules'){
+            }else if($request->get('table_filter') == 'moduls'){
                 return $this->modulService->index();
             }else if($request->get('table_filter') == 'work_times'){
                 return $this->workTimeService->index();

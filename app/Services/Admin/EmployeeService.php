@@ -9,8 +9,21 @@ class EmployeeService
 {
      public function index()
     {
-        $employees = Employee::all();
-        return view('admin.employees.index', compact('employees'));
+        $employees = Employee::with('projects')->get();
+        return response()->json([
+            "success" => true,
+            "data" => $employees
+        ]);
+    }
+    public function getTableView()
+    {
+        $employees = Employee::with('projects')->get();
+        return view('admin.employees.index', compact('employees'))->render();
+    }
+    public function getAllEmployees()
+    {
+        $employees = Employee::with('projects')->get();
+        return $employees;
     }
 
     // public function create()

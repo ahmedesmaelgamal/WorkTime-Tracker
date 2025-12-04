@@ -1,7 +1,8 @@
+
       <div id="t1" class="col-12">
         <div class="card shadow-sm">
           <div class="card-header">
-            <strong>Table 1 — Employees</strong>
+            <strong>Table 1 — Moduls</strong>
           </div>
           <div class="card-body p-0">
             <div class="table-responsive">
@@ -9,27 +10,21 @@
                 <thead class="table-light">
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>salary</th>
-                    <th>hour cost</th>
+                    <th>Modul Name</th>
+                    <th>Price</th>
+                    <th>Duration</th>
 
                   </tr>
                 </thead>
                   <tbody>
                   <tr>
-                    @foreach ($employees as $employee)
-                      <td>{{ $employee->id }}</td>
-                      <td>{{ $employee->name }}</td>
-                      <td>{{ $employee->salary }}</td>
-                      <td>{{ $employee->hour_cost }}</td>
+                    @foreach ($moduls as $modul)
+                      <td>{{ $modul->id }}</td>
+                      <td>{{ $modul->name }}</td>
+                      <td>{{ $modul->price }}</td>
+                      <td>{{ $modul->duration }}</td>
                     @endforeach
                   </tr>
-                  {{-- <tr>
-                      <td>2</td>
-                      <td>Bob Smith</td>
-                      <td>3000</td>
-                      <td>20</td>
-                  </tr> --}}
                   </tbody>
               </table>
             </div>

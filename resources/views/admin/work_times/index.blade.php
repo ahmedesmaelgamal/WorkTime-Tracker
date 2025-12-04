@@ -1,5 +1,4 @@
-@extends('admin.app')
-@section('tables')
+
 <div id="t3" class="col-12">
         <div class="card shadow-sm">
           <div class="card-header">
@@ -33,4 +32,3 @@
           </div>
         </div>
       </div>
-@endsection

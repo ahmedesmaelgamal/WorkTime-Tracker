@@ -37,5 +37,6 @@ Route::resource('work-times', WorkTimeController::class);
 
 // Additional custom routes
 Route::get('/reports', [ReportController::class, 'index'])->name('reports');
+// Route::get('/all', [ReportController::class, ''])->name('all');
 Route::get('/reports/export', [ReportController::class, 'export'])->name('reports.export');
 Route::post('/report/filter', [ReportController::class, 'filter'])->name('report.filter');

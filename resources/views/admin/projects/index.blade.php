@@ -1,5 +1,3 @@
-@extends('admin.app')
-@section('tables')
 <div id="t2" class="col-12">
         <div class="card shadow-sm">
           <div class="card-header">
@@ -10,42 +8,14 @@
               <table class="table table-bordered table-hover mb-0">
                 <thead class="table-light">
                   <tr>
-                    <th>Project ID</th>
-                    <th>Project Name</th>
-                    <th>start data</th>
-                    <th>end date </th>
-                    <th>total days </th>
-                    <th>total employees  </th>
-                    <th>total project cost </th>
-                  </tr>
-                </thead>
-                  <tbody>
-                  <tr>
-                      <td>1</td>
-                      <td>Website Redesign</td>
-                      <td>2025-10-05</td>
-                      <td>2025-11-05</td>
-                      <td>10</td>
-                      <td>3</td>
-                      <td>5500</td>
-                  </tr>
-                  <tr>
-                      <td>2</td>
-                      <td>Mobile App</td>
-                      <td>2025-10-05</td>
-                      <td>2025-11-05</td>
-                      <td>10</td>
-                      <td>3</td>
-                      <td>5500</td>
-                  </tr>
-                  <tr>
-                      <td>3</td>
-                      <td>API Stabilization</td>
-                      <td>2025-10-05</td>
-                      <td>2025-11-05</td>
-                      <td>10</td>
-                      <td>3</td>
-                      <td>5500</td>
+                    @foreach ($projects as $project)
+                        <th>{{ $project->name }}</th>
+                        <th>{{ $project->start_date }}</th>
+                        <th>{{ $project->end_date }}</th>
+                        <th>{{ $project->total_days }}</th>
+                        <th>{{ $project->total_employees }}</th>
+                        <th>{{ $project->total_project_cost }}</th>
+                    @endforeach
                   </tr>
                   </tbody>
               </table>
@@ -53,4 +23,3 @@
           </div>
         </div>
       </div>
-@endsection
